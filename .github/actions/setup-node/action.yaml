@@ -1,0 +1,12 @@
+name: Setup node
+description: Setup node (including caching)
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
+    - run: npm i
+      shell: bash

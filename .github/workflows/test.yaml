@@ -1,0 +1,45 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup python
+        uses: ./.github/actions/setup-python
+        with:
+          extra-cache: .ruff_cache
+      - name: Setup node
+        uses: ./.github/actions/setup-node
+      - name: lint
+        run: make lint
+
+  test:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup python
+        uses: ./.github/actions/setup-python
+        with:
+          extra-cache: |
+            .mypy_cache
+            .pytest_cache
+      - name: test
+        run: |
+          make test

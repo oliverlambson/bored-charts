@@ -1,0 +1,15 @@
+{
+  "plugins": ["prettier-plugin-jinja-template", "prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": ".prettierrc",
+      "options": { "parser": "json" }
+    },
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "jinja-template"
+      }
+    }
+  ]
+}

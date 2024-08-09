@@ -1,0 +1,17 @@
+{% macro figure(report, figure) %}
+  <div hx-ext="response-targets">
+    <div
+      class="min-h-0 min-w-0 flex-1"
+      hx-get="{{ url_for('figure', report_name=report, figure_name=figure) }}"
+      hx-trigger="load"
+      hx-swap="innerHTML"
+      hx-target-error="find div"
+    >
+      <div
+        class="flex h-[450px] w-full items-center justify-center bg-stone-100"
+      >
+        <p>loading...</p>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
