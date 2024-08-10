@@ -8,4 +8,10 @@ August 2024
 
 ## Metrics
 
-{{ figure(report, "example_uk") }}
+The USA's population has been growing linearly:
+
+{{ figure(report, "example_simple_usa") }}
+
+South Africa's growth is a bit weirder looking according to this chart:
+
+{{ figure(report, "example_params", country="South Africa") }}

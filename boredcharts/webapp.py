@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from textwrap import dedent
 
 import markdown
 from fastapi import FastAPI, Request
@@ -82,27 +81,14 @@ async def report(report_name: str, request: Request) -> HTMLResponse:
     )
 
 
-@app.get("/report/{report_name}/figure/{figure_name}", name="figure")
-async def figure(report_name: str, figure_name: str) -> HTMLResponse:
-    # TODO: split into generic figures and report-specific
-    # allow passing arbitrary parameters to figures
-    match figure_name:
-        case "example_uk":
-            chart = await example("United Kingdom")
-        case _:
-            return HTMLResponse(
-                dedent(
-                    f"""
-                    <div class="text-red-500 font-mono">
-                      <p class="font-bold">Error: 404 not found</p>
-                      <p>GET /report/{report_name}/figure/{figure_name}</p>
-                      <p>No figure called '{figure_name}' for report='{report_name}'</p>
-                    </div>
-                    """
-                ),
-                status_code=404,
-            )
-    return HTMLResponse(to_html(chart))
+@app.get("/report/{report_name}/figure/example_simple_usa", name="example_simple_usa")
+async def fig_example_simple(report_name: str) -> HTMLResponse:
+    return HTMLResponse(to_html(await example(report_name, "United States")))
+
+
+@app.get("/report/{report_name}/figure/example_params", name="example_params")
+async def fig_example(report_name: str, country: str) -> HTMLResponse:
+    return HTMLResponse(to_html(await example(report_name, country)))
 
 
 @app.get("/healthz")

@@ -4,7 +4,7 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 
 ## Roadmap
 
-- [ ] custom figures for individual reports using path parameters
+- [x] custom figures for individual reports using path parameters
 - [ ] installable as a framework
 - [ ] example with database
 - [ ] authentication
