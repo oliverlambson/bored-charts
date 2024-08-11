@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block main %}
   <div class="container mx-auto">
     <div class="prose">
       {% filter markdown %}
-        {%- include 'pages/' ~ report ~ '.md' %}
+        {%- include "pages/" ~ report ~ ".md" %}
       {% endfilter %}
     </div>
   </div>

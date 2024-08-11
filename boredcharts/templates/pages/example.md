@@ -1,4 +1,4 @@
-{% from 'components/figure.html' import figure with context %}
+{% from "components/figure.html" import figure with context %}
 
 August 2024
 

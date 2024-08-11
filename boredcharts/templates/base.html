@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ title|default('bored charts') }}</title>
+    <title>{{ title|default("bored charts") }}</title>
     <script
-      src="{{ url_for('static', path='plotly-2.34.0.min.js') }}"
+      src="{{ url_for("static", path="plotly-2.34.0.min.js") }}"
       charset="utf-8"
     ></script>
-    <script src="{{ url_for('static', path='tailwind.min.js') }}"></script>
-    <script src="{{ url_for('static', path='htmx-2.0.1.min.js') }}"></script>
-    <script src="{{ url_for('static', path='htmx-response-targets-2.0.1.min.js') }}"></script>
+    <script src="{{ url_for("static", path="tailwind.min.js") }}"></script>
+    <script src="{{ url_for("static", path="htmx-2.0.1.min.js") }}"></script>
+    <script src="{{ url_for("static", path="htmx-response-targets-2.0.1.min.js") }}"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -40,7 +40,7 @@
   <body>
     <header class="container mx-auto">
       <h1 class="pb-6 pt-2 text-4xl font-bold">
-        <a href="{{ url_for('home') }}">{{ title }}</a>
+        <a href="{{ url_for("home") }}">{{ title }}</a>
       </h1>
     </header>
     <main>{% block main %}{% endblock %}</main>
