@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title|default("bored charts") }}</title>
     <script
-      src="{{ url_for("static", path="plotly-2.34.0.min.js") }}"
+      src="{{ url_for("static", path="plotlyjs.min.js") }}"
       charset="utf-8"
     ></script>
     <script src="{{ url_for("static", path="tailwind.min.js") }}"></script>
@@ -44,13 +44,5 @@
       </h1>
     </header>
     <main>{% block main %}{% endblock %}</main>
-    <script>
-      window.onload = function () {
-        var plotDivs = document.querySelectorAll(".plotly-graph-div");
-        plotDivs.forEach(function (div) {
-          Plotly.relayout(div, { autosize: true });
-        });
-      };
-    </script>
   </body>
 </html>

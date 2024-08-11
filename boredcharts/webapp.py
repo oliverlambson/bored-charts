@@ -9,8 +9,9 @@ from fastapi.templating import Jinja2Templates
 from jinja2 import Environment, StrictUndefined
 from markupsafe import Markup
 from plotly.graph_objects import Figure
+from plotly.offline import get_plotlyjs
 
-from .figures import example
+from boredcharts.figures import example
 
 
 def to_html(fig: Figure) -> Markup:
@@ -36,6 +37,7 @@ def md_to_html(md: str) -> Markup:
 
 
 module_root = Path(__file__).parent.absolute()
+Path(module_root / "static" / "plotlyjs.min.js").write_text(get_plotlyjs())
 app = FastAPI()
 app.mount(
     "/static",
