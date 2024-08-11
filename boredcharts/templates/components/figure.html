@@ -1,6 +1,6 @@
 {% macro figure(report, figure) %}
-  <div hx-ext="response-targets">
-    <div
+  <div hx-ext="response-targets" class="not-prose">
+    <figure
       class="min-h-0 min-w-0 flex-1"
       hx-get="{{ url_for(figure, report_name=report).include_query_params(**kwargs) }}"
       hx-trigger="load"
@@ -12,6 +12,6 @@
       >
         <p>loading...</p>
       </div>
-    </div>
+    </figure>
   </div>
 {% endmacro %}
