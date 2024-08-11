@@ -17,6 +17,10 @@
           extend: {
             colors: {},
             fontFamily: {},
+            spacing: {
+              // continues from tailwindcss defaults
+              112: "28rem", // 448px
+            },
           },
         },
       };
@@ -34,6 +38,11 @@
             page-break-inside: avoid;
           }
         }
+        /* plotly responsive adjustments */
+        figure.plotly-container > div {
+          @apply h-full w-full;
+        }
+        /* end plotly responsive adjustments */
       }
     </style>
   </head>

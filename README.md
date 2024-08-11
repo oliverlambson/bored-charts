@@ -5,6 +5,7 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 ## Roadmap
 
 - [x] custom figures for individual reports using path parameters
+- [x] dynamic figure sizing using flexbox
 - [ ] dashboard layout with grid layout
 - [ ] installable as a framework
 - [ ] example with database
