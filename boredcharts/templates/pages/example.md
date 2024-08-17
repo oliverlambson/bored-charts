@@ -12,43 +12,43 @@ and use a little bit of jinja magic to pull in charts that we create in python.
 The USA's population has been growing linearly:
 
 <pre>{% raw %}
-{{ figure(report, "example_simple_usa") }}
+{{ figure("example_simple_usa") }}
 {% endraw %}</pre>
 
-{{ figure(report, "example_simple_usa") }}
+{{ figure("example_simple_usa") }}
 
 South Africa's growth is a bit weirder looking according to this chart:
 
 <pre>{% raw %}
-{{ figure(report, "example_params", country="South Africa") }}
+{{ figure("example_params", country="South Africa") }}
 {% endraw %}</pre>
 
-{{ figure(report, "example_params", country="South Africa") }}
+{{ figure("example_params", country="South Africa") }}
 
 We can do light HTML to put two charts side by side:
 
 <pre>{% raw %}
 &lt;div class="flex flex-wrap"&gt;
-  {{ figure(report, "example_params", country="United Kingdom") }}
-  {{ figure(report, "example_params", country="France") }}
+  {{ figure("example_params", country="United Kingdom") }}
+  {{ figure("example_params", country="France") }}
 &lt;/div&gt;
 {% endraw %}</pre>
 
 <div class="flex flex-wrap">
-  {{ figure(report, "example_params", country="United Kingdom") }}
-  {{ figure(report, "example_params", country="France") }}
+  {{ figure("example_params", country="United Kingdom") }}
+  {{ figure("example_params", country="France") }}
 </div>
 
 And we can add custom tailwind classes to the figures:
 
 <pre>{% raw %}
 &lt;div class="flex flex-wrap"&gt;
-  {{ figure(report, "example_params", country="Canada", class="h-[300px] min-w-[300px]") }}
-  {{ figure(report, "example_params", country="Australia", class="h-[300px] min-w-[300px]") }}
+  {{ figure("example_params", country="Canada", class="h-[300px] min-w-[300px]") }}
+  {{ figure("example_params", country="Australia", class="h-[300px] min-w-[300px]") }}
 &lt;/div&gt;
 {% endraw %}</pre>
 
 <div class="flex flex-wrap">
-  {{ figure(report, "example_params", country="Canada", class="h-[300px] min-w-[300px]") }}
-  {{ figure(report, "example_params", country="Australia", class="h-[300px] min-w-[300px]") }}
+  {{ figure("example_params", country="Canada", class="h-[300px] min-w-[300px]") }}
+  {{ figure("example_params", country="Australia", class="h-[300px] min-w-[300px]") }}
 </div>

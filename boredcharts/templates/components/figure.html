@@ -1,5 +1,6 @@
 {# TODO: consider using prose width/heights here, max-w-[65ch] #}
-{% macro figure(report, figure, class="min-h-112 min-w-80") %}
+{# expects global "report" #}
+{% macro figure(figure, class="min-h-112 min-w-80") %}
   <div
     hx-ext="response-targets"
     class="not-prose {{ class }} flex flex-1 items-stretch"
