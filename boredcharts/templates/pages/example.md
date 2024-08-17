@@ -1,4 +1,4 @@
-{% from "components/figure.html" import figure with context %}
+{% from "components/figure.html" import figure, row with context %}
 
 August 2024
 
@@ -25,30 +25,53 @@ South Africa's growth is a bit weirder looking according to this chart:
 
 {{ figure("example_params", country="South Africa") }}
 
-We can do light HTML to put two charts side by side:
+We can put two charts side by side:
 
 <pre>{% raw %}
-&lt;div class="flex flex-wrap"&gt;
-  {{ figure("example_params", country="United Kingdom") }}
-  {{ figure("example_params", country="France") }}
-&lt;/div&gt;
+{{
+  row(
+    figure("example_params", country="United Kingdom"),
+    figure("example_params", country="France"),
+  )
+}}
 {% endraw %}</pre>
 
-<div class="flex flex-wrap">
-  {{ figure("example_params", country="United Kingdom") }}
-  {{ figure("example_params", country="France") }}
-</div>
+{{
+  row(
+    figure("example_params", country="United Kingdom"),
+    figure("example_params", country="France"),
+  )
+}}
 
 And we can add custom tailwind classes to the figures:
 
 <pre>{% raw %}
+{{
+  row(
+    figure("example_params", country="Canada", class="h-[300px] min-w-[300px]"),
+    figure("example_params", country="Australia", class="h-[300px] min-w-[300px]"),
+  )
+}}
+{% endraw %}</pre>
+
+{{
+  row(
+    figure("example_params", country="Canada", class="h-[300px] min-w-[300px]"),
+    figure("example_params", country="Australia", class="h-[300px] min-w-[300px]"),
+  )
+}}
+
+We can also dip into html when we need to
+(notice this is exactly the same as the `row` helper earlier):
+
+<pre>{% raw %}
 &lt;div class="flex flex-wrap"&gt;
-  {{ figure("example_params", country="Canada", class="h-[300px] min-w-[300px]") }}
-  {{ figure("example_params", country="Australia", class="h-[300px] min-w-[300px]") }}
-&lt;/div&gt;
+  {{ figure("example_params", country="United Kingdom") }}
+  {{ figure("example_params", country="France") }}
+&lt/div&gt;
 {% endraw %}</pre>
 
 <div class="flex flex-wrap">
-  {{ figure("example_params", country="Canada", class="h-[300px] min-w-[300px]") }}
-  {{ figure("example_params", country="Australia", class="h-[300px] min-w-[300px]") }}
+  {{ figure("example_params", country="United Kingdom") }}
+  {{ figure("example_params", country="France") }}
 </div>

@@ -18,3 +18,11 @@
     </figure>
   </div>
 {% endmacro %}
+
+{% macro row() %}
+<div class="flex flex-wrap">
+    {% for figure in varargs %}
+        {{ figure }}
+    {% endfor %}
+</div>
+{% endmacro %}
