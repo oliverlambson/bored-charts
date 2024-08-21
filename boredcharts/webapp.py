@@ -52,6 +52,17 @@ async def home(request: Request) -> HTMLResponse:
     )
 
 
+@app.get("/healthz")
+async def healthz() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+# ------------------------------------------------------------------------------
+# TODO: the stuff below should be abstracted away from the framework user
+# ------------------------------------------------------------------------------
+
+
+# TODO: pass pages path into framework, auto generate this route
 @app.get("/report/{report_name}", name="report")
 async def report(report_name: str, request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
@@ -63,6 +74,7 @@ async def report(report_name: str, request: Request) -> HTMLResponse:
     )
 
 
+# TODO: pass functions into framework, auto generate these routes
 @app.get("/report/{report_name}/figure/example_simple_usa", name="example_simple_usa")
 async def fig_example_simple(report_name: str) -> HTMLResponse:
     return HTMLResponse(to_html(await example(report_name, "United States")))
@@ -113,9 +125,9 @@ async def fig_elasticity_vs_profit(
     )
 
 
-@app.get("/healthz")
-async def healthz() -> dict[str, str]:
-    return {"status": "ok"}
+# ------------------------------------------------------------------------------
+# endTODO
+# ------------------------------------------------------------------------------
 
 
 def entrypoint() -> None:
