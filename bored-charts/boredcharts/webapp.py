@@ -16,7 +16,7 @@ def boredcharts(
     pages: Path,
     figure_router: APIRouter,
     *,
-    name: str = "boredcharts",
+    name: str = "bored-charts",
 ) -> FastAPI:
     """Creates a boredcharts app."""
     static_root = module_root / "static"
