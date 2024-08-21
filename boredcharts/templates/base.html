@@ -46,12 +46,29 @@
       }
     </style>
   </head>
-  <body hx-boost="true">
-    <header class="container mx-auto">
+  <body hx-boost="true" class="flex min-h-screen flex-col">
+    <header class="container flex-none self-center">
       <h1 class="pb-6 pt-2 text-4xl font-bold">
         <a href="{{ url_for("home") }}">{{ title }}</a>
       </h1>
     </header>
-    <main>{% block main %}{% endblock %}</main>
+    <main class="grow">{% block main %}{% endblock %}</main>
+    <footer class="container flex-none self-center py-4">
+      <a
+        href="https://www.github.com/oliverlambson/bored-charts"
+        target="_blank"
+        class="group flex"
+      >
+        <img
+          src="{{ url_for("static", path="github-mark.min.svg") }}"
+          alt="GitHub"
+          class="h-6"
+        />
+        <span
+          class="pl-2 underline underline-offset-2 group-hover:underline-offset-4"
+          >view it on GitHub</span
+        >
+      </a>
+    </footer>
   </body>
 </html>
