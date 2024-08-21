@@ -61,7 +61,7 @@ enable_incomplete_feature = ["NewGenericSyntax"]
 strict = true
 
 [[tool.mypy.overrides]]
-module = ["plotly.*"]
+module = ["plotly.*", "mpld3.*"]
 ignore_missing_imports = true
 
 [tool.ruff.lint]

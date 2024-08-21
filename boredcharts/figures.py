@@ -1,3 +1,4 @@
+import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
@@ -26,7 +27,7 @@ async def example(report_name: str, country: str) -> Figure:
 
 async def elasticity_vs_profit(
     report_name: str, margin: float | None = None
-) -> plt.Figure:
+) -> mplfig.Figure:
     n = 1000
     price_range = (-1, 1 + 1 / n)
     qty_range = (-1, 5 + 1 / n)
@@ -42,12 +43,12 @@ async def elasticity_vs_profit(
     # fig, ax = plt.subplots()
 
     for i, margin in enumerate(margin_values):
-        mask = np.where(Q >= 0, margin > RHS, margin < RHS)
+        mask = np.where(Q >= 0, margin > RHS, margin < RHS)  # pyright: ignore[reportOptionalOperand]
         ax.contourf(P, Q, mask, levels=[0.5, 1], alpha=0.15)
 
     contours = []
     for margin in margin_values:
-        mask = np.where(Q >= 0, margin > RHS, margin < RHS)
+        mask = np.where(Q >= 0, margin > RHS, margin < RHS)  # pyright: ignore[reportOptionalOperand]
         contour = ax.contour(P, Q, mask, levels=[0], colors="black", linewidths=0.5)
         contours.append(contour)
 
@@ -55,7 +56,8 @@ async def elasticity_vs_profit(
         suffix = " margin" if i == 0 else ""
         paths = contour.collections[0].get_paths()
         label_positions = [
-            path.vertices[int(0.1 * len(path.vertices))] for path in paths
+            path.vertices[int(0.1 * len(path.vertices))]  # type: ignore[index,operator,arg-type]
+            for path in paths
         ]
         ax.clabel(
             contour,
