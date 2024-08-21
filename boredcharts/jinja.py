@@ -1,7 +1,11 @@
+import string
+import uuid
 from textwrap import dedent, indent
 from typing import Any
 
 import markdown
+import matplotlib.figure as mplfig
+import mpld3
 from fastapi import Request
 from jinja2 import Undefined, pass_context
 from jinja2.runtime import Context
@@ -9,10 +13,26 @@ from markupsafe import Markup
 from plotly.graph_objects import Figure
 
 
-def to_html(fig: Figure) -> Markup:
+def md_to_html(md: str) -> Markup:
+    """Renders a Markdown string to HTML."""
+    return Markup(markdown.markdown(md))
+
+
+def to_html(fig: Figure | mplfig.Figure) -> Markup:
+    """Renders a Figure to an HTML string."""
+    match fig:
+        case Figure():
+            return plotly_to_html(fig)
+        case mplfig.Figure():
+            return mpl_to_html(fig)
+        case _:
+            raise ValueError(
+                f"Input must be a Plotly/Matplotlib Figure, got {type(fig)}"
+            )
+
+
+def plotly_to_html(fig: Figure) -> Markup:
     """Renders a Plotly Figure to an HTML string."""
-    if not isinstance(fig, Figure):
-        raise ValueError(f"Input must be a Plotly Figure, got {type(fig)}")
     return Markup(
         fig.to_html(
             full_html=False,
@@ -28,9 +48,40 @@ def to_html(fig: Figure) -> Markup:
     )
 
 
-def md_to_html(md: str) -> Markup:
-    """Renders a Markdown string to HTML."""
-    return Markup(markdown.markdown(md))
+def mpl_to_html(fig: mplfig.Figure) -> Markup:
+    """Renders a matplotlib Figure to an HTML string."""
+    # TODO: return base64 encoded PNG instead of using mpld3
+    figid = uuid.uuid4()
+    script = dedent(
+        string.Template(
+            """
+                <script>
+                async function resizeMpld3(event, figid) {
+                    var targetDiv = event.detail.elt.querySelector(`#${figid}`);
+                    if (targetDiv) {
+                        var svgElements = targetDiv.querySelectorAll('.mpld3-figure');
+                        svgElements.forEach(function(svgElement) {
+                            var width = svgElement.getAttribute('width');
+                            var height = svgElement.getAttribute('height');
+                            svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
+                            svgElement.setAttribute('width', '100%');
+                            svgElement.removeAttribute('height');
+                        });
+                    }
+                }
+                document.addEventListener("htmx:afterSettle", (event) => { resizeMpld3(event, "${figid}") });
+                </script>
+            """
+        ).safe_substitute(figid=figid)
+    ).strip()
+    return Markup(
+        mpld3.fig_to_html(
+            fig,
+            no_extras=True,
+            figid=str(figid),
+        )
+        + script
+    )
 
 
 @pass_context

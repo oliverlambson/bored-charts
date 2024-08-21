@@ -1,10 +1,5 @@
-import string
-import uuid
-from textwrap import dedent
-
 import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
-import mpld3
 import numpy as np
 import plotly.express as px
 from fastapi import APIRouter
@@ -113,35 +108,4 @@ async def elasticity_vs_profit(
 async def fig_elasticity_vs_profit(
     report_name: str, margin: float | None = None
 ) -> HTMLResponse:
-    # TODO: return base64 encoded PNG instead of using mpld3
-    figid = uuid.uuid4()
-    script = dedent(
-        string.Template(
-            """
-                <script>
-                async function resizeMpld3(event, figid) {
-                    var targetDiv = event.detail.elt.querySelector(`#${figid}`);
-                    if (targetDiv) {
-                        var svgElements = targetDiv.querySelectorAll('.mpld3-figure');
-                        svgElements.forEach(function(svgElement) {
-                            var width = svgElement.getAttribute('width');
-                            var height = svgElement.getAttribute('height');
-                            svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
-                            svgElement.setAttribute('width', '100%');
-                            svgElement.removeAttribute('height');
-                        });
-                    }
-                }
-                document.addEventListener("htmx:afterSettle", (event) => { resizeMpld3(event, "${figid}") });
-                </script>
-            """
-        ).safe_substitute(figid=figid)
-    ).strip()
-    return HTMLResponse(
-        mpld3.fig_to_html(
-            await elasticity_vs_profit(report_name, margin),
-            no_extras=True,
-            figid=str(figid),
-        )
-        + script
-    )
+    return HTMLResponse(to_html(await elasticity_vs_profit(report_name, margin)))
