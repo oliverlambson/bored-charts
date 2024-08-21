@@ -6,8 +6,10 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 
 - [x] custom figures for individual reports using path parameters
 - [x] dynamic figure sizing using flexbox
+- [x] installable as a framework
+- [x] example project
+- [ ] separate pyproject.toml for lib and example
 - [ ] dashboard layout with grid layout
-- [ ] installable as a framework
 - [ ] example with database
 - [ ] authentication
 - [ ] pdf exports

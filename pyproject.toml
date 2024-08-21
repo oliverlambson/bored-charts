@@ -23,7 +23,7 @@ Repository = "https://github.com/oliverlambson/bored-charts.git"
 Issues = "https://github.com/oliverlambson/bored-charts/issues"
 
 [project.scripts]
-boredcharts = "boredcharts.webapp:entrypoint"
+bc-example = "example.app:entrypoint"
 
 [build-system]
 requires = ["hatchling"]

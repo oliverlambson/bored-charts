@@ -1,3 +1,4 @@
+import logging
 import string
 import uuid
 from textwrap import dedent, indent
@@ -11,6 +12,8 @@ from jinja2 import Undefined, pass_context
 from jinja2.runtime import Context
 from markupsafe import Markup
 from plotly.graph_objects import Figure
+
+logger = logging.getLogger("boredcharts")
 
 
 def md_to_html(md: str) -> Markup:
@@ -165,5 +168,5 @@ def row(*figures: Markup) -> Markup:
 </div>
         """.strip()
     )
-    print(out)
+    logger.debug(out)
     return out

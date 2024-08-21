@@ -47,7 +47,7 @@ fmt:
 .PHONY: dev
 ## Run locally
 dev:
-	UVICORN_RELOAD=true rye run boredcharts
+	UVICORN_RELOAD=true rye run bc-example
 
 .PHONY: d.up
 ## Start docker compose

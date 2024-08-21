@@ -1,0 +1,1 @@
+# boredcharts example app
