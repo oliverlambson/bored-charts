@@ -1,9 +1,8 @@
 from pathlib import Path
 
+from boredcharts.webapp import boredcharts
 from fastapi import APIRouter
 from fastapi.testclient import TestClient
-
-from boredcharts.webapp import boredcharts
 
 
 def test_healthz() -> None:

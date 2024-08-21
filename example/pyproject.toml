@@ -1,0 +1,10 @@
+[project]
+name = "bored-charts-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["bored-charts", "uvicorn>=0.30.5"]
+
+[project.scripts]
+bc-example = "bcexample.app:entrypoint"

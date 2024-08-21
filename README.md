@@ -8,7 +8,9 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 - [x] dynamic figure sizing using flexbox
 - [x] installable as a framework
 - [x] example project
-- [ ] separate pyproject.toml for lib and example
+- [x] separate pyproject.toml for lib and example
+- [ ] publish to pypi
+- [ ] deploy to [bored-charts-example.oliverlambson.com](https://bored-charts-example.oliverlambson.com)
 - [ ] dashboard layout with grid layout
 - [ ] example with database
 - [ ] authentication

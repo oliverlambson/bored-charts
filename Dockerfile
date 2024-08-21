@@ -15,9 +15,11 @@ WORKDIR /app
 RUN chown bored-charts:bored-charts /app
 
 COPY --chown=bored-charts uv.lock pyproject.toml ./
-COPY --chown=bored-charts boredcharts/__init__.py ./boredcharts/__init__.py
-RUN mkdir -p boredcharts/ && \
-  touch README.md && \
+COPY --chown=bored-charts bored-charts/pyproject.toml ./bored-charts/pyproject.toml
+COPY --chown=bored-charts bored-charts/boredcharts/__init__.py ./bored-charts/boredcharts/__init__.py
+COPY --chown=bored-charts example/pyproject.toml ./example/pyproject.toml
+COPY --chown=bored-charts example/bcexample/__init__.py ./example/bcexample/__init__.py
+RUN touch README.md bored-charts/README.md example/README.md && \
   uv sync --locked --no-dev
 
 COPY --chown=bored-charts ./ /app/

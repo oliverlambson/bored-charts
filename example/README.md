@@ -1,1 +1,1 @@
-# boredcharts example app
+# bored-charts example app

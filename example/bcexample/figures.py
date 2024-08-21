@@ -2,11 +2,10 @@ import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
+from boredcharts.jinja import to_html
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 from plotly.graph_objects import Figure
-
-from boredcharts.jinja import to_html
 
 router = APIRouter()
 
