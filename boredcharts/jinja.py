@@ -14,7 +14,7 @@ from plotly.graph_objects import Figure
 
 
 def md_to_html(md: str) -> Markup:
-    """Renders a Markdown string to HTML."""
+    """Renders a Markdown as HTML."""
     return Markup(markdown.markdown(md))
 
 
@@ -32,7 +32,7 @@ def to_html(fig: Figure | mplfig.Figure) -> Markup:
 
 
 def plotly_to_html(fig: Figure) -> Markup:
-    """Renders a Plotly Figure to an HTML string."""
+    """Renders a Plotly Figure as HTML."""
     return Markup(
         fig.to_html(
             full_html=False,
@@ -49,7 +49,7 @@ def plotly_to_html(fig: Figure) -> Markup:
 
 
 def mpl_to_html(fig: mplfig.Figure) -> Markup:
-    """Renders a matplotlib Figure to an HTML string."""
+    """Renders a matplotlib Figure as HTML."""
     # TODO: return base64 encoded PNG instead of using mpld3
     figid = uuid.uuid4()
     script = dedent(
@@ -92,7 +92,14 @@ def figure(
     css_class: str = "min-h-112 min-w-80",
     **kwargs: dict[str, Any],
 ) -> Markup:
-    """"""
+    """Jinja function to display a figure.
+
+    Calls a figure endpoint and swaps-in the returned HTML snippet.
+
+    e.g.:
+    {{ figure("example_figure") }}
+    {{ figure("example_figure_with_params", param_1="foo") }}
+    """
     report = context.resolve("report")
     if isinstance(report, Undefined):
         raise ValueError("report is not available in the context")
@@ -131,7 +138,16 @@ def figure(
 
 
 def row(*figures: Markup) -> Markup:
-    """Combines multiple figures into a single row."""
+    """Jinja function to display multiple figures in a single row.
+
+    e.g.:
+    {{
+        row(
+            figure("example_figure"),
+            figure("example_figure_with_params", param_1="foo"),
+        )
+    }}
+    """
 
     # Important:
     # ---
