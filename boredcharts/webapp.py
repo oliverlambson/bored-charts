@@ -14,7 +14,7 @@ from boredcharts.jinja import figure, md_to_html, row
 module_root = Path(__file__).parent.absolute()
 static_root = module_root / "static"
 templates_root = module_root / "templates"
-pages_root = module_root / "templates" / "pages"
+pages_root = module_root / "pages"
 
 Path(static_root / "plotlyjs.min.js").write_text(get_plotlyjs())
 
@@ -25,7 +25,7 @@ app.mount(
     "static",
 )
 templates = Jinja2Templates(
-    directory=templates_root,
+    directory=[pages_root, templates_root],  # user can overwrite templates with pages
     env=Environment(
         trim_blocks=True,
         lstrip_blocks=True,
