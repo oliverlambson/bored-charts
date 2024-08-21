@@ -41,10 +41,10 @@ We can put two charts side by side:
 </pre>
 
 {{
-row(
-  figure("example_params", country="United Kingdom"),
-  figure("example_params", country="France")
-)
+  row(
+    figure("example_params", country="United Kingdom"),
+    figure("example_params", country="France"),
+  )
 }}
 
 And we can add custom tailwind classes to the figures:

@@ -33,7 +33,7 @@ test:
 lint:
 	rye run ruff check .
 	rye run ruff format . --check
-	rye run mdformat README.md boredcharts/ --check
+	rye run mdformat README.md --check
 	npx prettier . --check
 
 .PHONY: fmt
@@ -41,7 +41,7 @@ lint:
 fmt:
 	rye run ruff check . --fix
 	rye run ruff format .
-	rye run mdformat README.md boredcharts/
+	rye run mdformat README.md
 	npx prettier . --write
 
 .PHONY: dev
