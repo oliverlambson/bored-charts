@@ -19,35 +19,35 @@ help:
 env:
 	rm -rf .venv
 	rm -rf node_modules
-	rye sync
+	uv sync
 	npm i
 
 .PHONY: test
 ## Run test
 test:
-	rye run mypy .
-	rye run pytest
+	uv run mypy .
+	uv run pytest
 
 .PHONY: lint
 ## Run linting
 lint:
-	rye run ruff check .
-	rye run ruff format . --check
-	rye run mdformat README.md --check
+	uv run ruff check .
+	uv run ruff format . --check
+	uv run mdformat README.md --check
 	npx prettier . --check
 
 .PHONY: fmt
 ## Run linting
 fmt:
-	rye run ruff check . --fix
-	rye run ruff format .
-	rye run mdformat README.md
+	uv run ruff check . --fix
+	uv run ruff format .
+	uv run mdformat README.md
 	npx prettier . --write
 
 .PHONY: dev
 ## Run locally
 dev:
-	UVICORN_RELOAD=true rye run bc-example
+	UVICORN_RELOAD=true uv run bc-example
 
 .PHONY: d.up
 ## Start docker compose
@@ -58,3 +58,8 @@ d.up:
 ## Stop docker compose
 d.down:
 	docker compose down --remove-orphans
+
+.PHONY: clean
+## Remove all hidden generated/cache files
+clean:
+	find . -type d \( -name "__pycache__" -o -name ".ruff_cache" -o -name ".mypy_cache" -o -name ".pytest_cache" \) -exec rm -rf {} +

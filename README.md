@@ -17,7 +17,7 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 
 ## Setup
 
-You'll need [rye](https://rye.astral.sh/guide/installation/).
+You'll need [uv](https://docs.astral.sh/uv/getting-started/installation/).
 (and [node](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)
 for linting/formatting, sorry)
 

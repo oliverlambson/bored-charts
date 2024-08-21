@@ -38,8 +38,7 @@ path = "boredcharts/__init__.py"
 [tool.hatch.build.targets.wheel]
 packages = ["boredcharts"]
 
-[tool.rye]
-managed = true
+[tool.uv]
 dev-dependencies = [
     "pytest>=8.3.2",
     "mypy>=1.11.1",

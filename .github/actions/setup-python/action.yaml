@@ -20,13 +20,23 @@ runs:
         [ -f .python-version ] || echo "${{ inputs.python-version }}" > .python-version
       shell: bash
 
-    - id: setup-rye
-      uses: eifinger/setup-rye@v4
+    - name: uv-cache
+      uses: actions/cache@v4
       with:
-        enable-cache: true
+        path: /opt/uv_cache
+        key: ${{ runner.os }}-uv_cache
 
-    - run: rye sync
+    - id: setup-uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
       shell: bash
+      env:
+        UV_CACHE_DIR: "/opt/uv_cache"
+
+    - run: uv sync
+      shell: bash
+      env:
+        UV_CACHE_DIR: "/opt/uv_cache"
 
     - name: set-cache-name
       id: set-cache-name

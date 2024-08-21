@@ -4,7 +4,7 @@ from fastapi import APIRouter, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from jinja2 import Environment, StrictUndefined
+from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from plotly.offline import get_plotlyjs
 
 from boredcharts.jinja import figure, md_to_html, row
@@ -32,11 +32,13 @@ def boredcharts(
     )
 
     templates = Jinja2Templates(
-        directory=[
-            pages,
-            templates_root,
-        ],  # order allows user to overwrite templates with pages
         env=Environment(
+            loader=FileSystemLoader(
+                [
+                    pages,  # being first allows user to overwrite default templates
+                    templates_root,
+                ],
+            ),
             trim_blocks=True,
             lstrip_blocks=True,
             undefined=StrictUndefined,
