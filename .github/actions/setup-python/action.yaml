@@ -45,7 +45,7 @@ runs:
         echo "cache-name=$cache_name" >>$GITHUB_OUTPUT
       shell: bash
 
-    - if: ${{ 'inputs.extra-cache' != '' }}
+    - if: ${{ inputs.extra-cache != '' }}
       name: extra-cache
       uses: actions/cache@v4
       with:

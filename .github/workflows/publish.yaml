@@ -1,0 +1,51 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}-publish
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup python
+        uses: ./.github/actions/setup-python
+      - name: build
+        run: uvx --from build pyproject-build --installer uv
+        working-directory: bored-charts
+      - name: Upload sdist
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-sdist
+          path: bored-charts/dist
+
+  publish:
+    if: github.event_name == 'release'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/bored-charts
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: wheels-sdist/
