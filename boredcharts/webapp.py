@@ -12,15 +12,20 @@ from boredcharts.figures import router as figure_router
 from boredcharts.jinja import figure, md_to_html, row
 
 module_root = Path(__file__).parent.absolute()
-Path(module_root / "static" / "plotlyjs.min.js").write_text(get_plotlyjs())
+static_root = module_root / "static"
+templates_root = module_root / "templates"
+pages_root = module_root / "templates" / "pages"
+
+Path(static_root / "plotlyjs.min.js").write_text(get_plotlyjs())
+
 app = FastAPI()
 app.mount(
     "/static",
-    StaticFiles(directory=module_root / "static"),
+    StaticFiles(directory=static_root),
     "static",
 )
 templates = Jinja2Templates(
-    directory=module_root / "templates",
+    directory=templates_root,
     env=Environment(
         trim_blocks=True,
         lstrip_blocks=True,
@@ -31,7 +36,7 @@ templates.env.globals["title"] = "bored charts"
 templates.env.globals["reports"] = [
     {"name": f.stem}
     for f in sorted(
-        (module_root / "templates" / "pages").glob("*.md"),
+        pages_root.glob("*.md"),
         reverse=True,
     )
 ]
