@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
-import plotly.tools as tls
 from plotly.graph_objects import Figure
 
 

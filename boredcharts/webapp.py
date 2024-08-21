@@ -4,41 +4,16 @@ import uuid
 from pathlib import Path
 from textwrap import dedent
 
-import markdown
 import mpld3
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jinja2 import Environment, StrictUndefined
-from markupsafe import Markup
-from plotly.graph_objects import Figure
 from plotly.offline import get_plotlyjs
 
 from boredcharts.figures import elasticity_vs_profit, example
-
-
-def to_html(fig: Figure) -> Markup:
-    if not isinstance(fig, Figure):
-        raise ValueError(f"Input must be a Plotly Figure, got {type(fig)}")
-    return Markup(
-        fig.to_html(
-            full_html=False,
-            include_plotlyjs=False,
-            default_height="100%",
-            default_width="100%",
-            config={
-                "displaylogo": False,
-                "responsive": True,
-                "displayModeBar": False,
-            },
-        )
-    )
-
-
-def md_to_html(md: str) -> Markup:
-    return Markup(markdown.markdown(md))
-
+from boredcharts.jinja import figure, md_to_html, row, to_html
 
 module_root = Path(__file__).parent.absolute()
 Path(module_root / "static" / "plotlyjs.min.js").write_text(get_plotlyjs())
@@ -65,7 +40,8 @@ templates.env.globals["reports"] = [
     )
 ]
 templates.env.filters["markdown"] = md_to_html
-templates.env.filters["html"] = to_html
+templates.env.globals["figure"] = figure
+templates.env.globals["row"] = row
 
 
 @app.get("/")
@@ -103,6 +79,7 @@ async def fig_example(report_name: str, country: str) -> HTMLResponse:
 async def fig_elasticity_vs_profit(
     report_name: str, margin: float | None = None
 ) -> HTMLResponse:
+    # TODO: return base64 encoded PNG instead of using mpld3
     figid = uuid.uuid4()
     script = dedent(
         string.Template(
