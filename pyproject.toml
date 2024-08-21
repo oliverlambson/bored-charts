@@ -11,6 +11,8 @@ dependencies = [
     "pandas>=2.2.2",
     "markdown>=3.6",
     "markupsafe>=2.1.5",
+    "matplotlib>=3.9.2",
+    "mpld3>=0.5.10",
 ]
 readme = "README.md"
 license = "MIT"

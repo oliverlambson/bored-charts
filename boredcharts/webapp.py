@@ -1,7 +1,11 @@
 import os
+import string
+import uuid
 from pathlib import Path
+from textwrap import dedent
 
 import markdown
+import mpld3
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -11,7 +15,7 @@ from markupsafe import Markup
 from plotly.graph_objects import Figure
 from plotly.offline import get_plotlyjs
 
-from boredcharts.figures import example
+from boredcharts.figures import elasticity_vs_profit, example
 
 
 def to_html(fig: Figure) -> Markup:
@@ -91,6 +95,45 @@ async def fig_example_simple(report_name: str) -> HTMLResponse:
 @app.get("/report/{report_name}/figure/example_params", name="example_params")
 async def fig_example(report_name: str, country: str) -> HTMLResponse:
     return HTMLResponse(to_html(await example(report_name, country)))
+
+
+@app.get(
+    "/report/{report_name}/figure/elasticity_vs_profit", name="elasticity_vs_profit"
+)
+async def fig_elasticity_vs_profit(
+    report_name: str, margin: float | None = None
+) -> HTMLResponse:
+    figid = uuid.uuid4()
+    script = dedent(
+        string.Template(
+            """
+                <script>
+                async function resizeMpld3(event, figid) {
+                    var targetDiv = event.detail.elt.querySelector(`#${figid}`);
+                    if (targetDiv) {
+                        var svgElements = targetDiv.querySelectorAll('.mpld3-figure');
+                        svgElements.forEach(function(svgElement) {
+                            var width = svgElement.getAttribute('width');
+                            var height = svgElement.getAttribute('height');
+                            svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
+                            svgElement.setAttribute('width', '100%');
+                            svgElement.removeAttribute('height');
+                        });
+                    }
+                }
+                document.addEventListener("htmx:afterSettle", (event) => { resizeMpld3(event, "${figid}") });
+                </script>
+            """
+        ).safe_substitute(figid=figid)
+    ).strip()
+    return HTMLResponse(
+        mpld3.fig_to_html(
+            await elasticity_vs_profit(report_name, margin),
+            no_extras=True,
+            figid=str(figid),
+        )
+        + script
+    )
 
 
 @app.get("/healthz")
