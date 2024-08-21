@@ -43,7 +43,7 @@ make fmt  # runs formatting
 - [tailwindcss](https://tailwindcss.com/)
 - [plotly](https://plotly.com/python/)
 
-## References
+## Alternatives
 
 Inspired by [evidence.dev](https://github.com/evidence-dev/evidence),
 [observable framework](https://github.com/observablehq/framework), and
