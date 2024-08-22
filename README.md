@@ -10,10 +10,10 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 - [x] example project
 - [x] separate pyproject.toml for lib and example
 - [x] publish to pypi
-- [ ] less boilerplate to register figure endpoints
+- [x] less boilerplate to register figure endpoints
   - [x] @bored_router.chart decorator
-  - [ ] allow decoration of functions that return figures directly
-- [ ] make report_name path parameter optional
+  - [x] allow decoration of functions that return figures directly
+- [x] make report_name path parameter optional
 - [ ] deploy to [bored-charts-example.oliverlambson.com](https://bored-charts-example.oliverlambson.com)
 - [ ] dashboard layout with grid layout
 - [ ] example with database

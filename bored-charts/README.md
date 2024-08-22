@@ -22,19 +22,18 @@ pip install bored-charts uvicorn
 from pathlib import Path
 
 import plotly.express as px
+import plotly.graph_objects as go
 from boredcharts import BCRouter, boredcharts
-from boredcharts.jinja import to_html
-from fastapi.responses import HTMLResponse
 
 pages = Path(__file__).parent.absolute() / "pages"
 figure_router = BCRouter()
 
 
-@figure_router.chart("usa_population")
-async def usa_population() -> HTMLResponse:
-    df = px.data.gapminder().query("country=='United States'")
+@figure_router.chart("population")
+async def population(country: str) -> go.Figure:
+    df = px.data.gapminder().query(f"country=='{country}'")
     fig = px.bar(df, x="year", y="pop")
-    return HTMLResponse(to_html(fig))
+    return fig
 
 
 app = boredcharts(
@@ -52,7 +51,7 @@ pages/populations.md:
 
 USA's population has been growing linearly for the last 70 years:
 
-{{ figure("usa_population") }}
+{{ figure("population", country="United States") }}
 ```
 
 ### Run your app

@@ -11,21 +11,21 @@ The USA's population has been growing linearly:
 
 <pre>
 {%- raw %}
-{{ figure("example_simple_usa") }}
+{{ figure("usa_population") }}
 {% endraw -%}
 </pre>
 
-{{ figure("example_simple_usa") }}
+{{ figure("usa_population") }}
 
 South Africa's growth is a bit weirder looking according to this chart:
 
 <pre>
 {%- raw %}
-{{ figure("example_params", country="South Africa") }}
+{{ figure("population", country="South Africa") }}
 {% endraw -%}
 </pre>
 
-{{ figure("example_params", country="South Africa") }}
+{{ figure("population", country="South Africa") }}
 
 We can put two charts side by side:
 
@@ -33,8 +33,8 @@ We can put two charts side by side:
 {%- raw %}
 {{
   row(
-    figure("example_params", country="United Kingdom"),
-    figure("example_params", country="France"),
+    figure("population", country="United Kingdom"),
+    figure("population", country="France"),
   )
 }}
 {% endraw -%}
@@ -42,8 +42,8 @@ We can put two charts side by side:
 
 {{
   row(
-    figure("example_params", country="United Kingdom"),
-    figure("example_params", country="France"),
+    figure("population", country="United Kingdom"),
+    figure("population", country="France"),
   )
 }}
 
@@ -53,8 +53,8 @@ And we can add custom tailwind classes to the figures:
 {%- raw %}
 {{
   row(
-    figure("example_params", country="Canada", class="h-[300px] min-w-[300px]"),
-    figure("example_params", country="Australia", class="h-[300px] min-w-[300px]"),
+    figure("population", country="Canada", class="h-[300px] min-w-[300px]"),
+    figure("population", country="Australia", class="h-[300px] min-w-[300px]"),
   )
 }}
 {% endraw -%}
@@ -62,8 +62,8 @@ And we can add custom tailwind classes to the figures:
 
 {{
   row(
-    figure("example_params", country="Canada", class="h-[300px] min-w-[300px]"),
-    figure("example_params", country="Australia", class="h-[300px] min-w-[300px]"),
+    figure("population", country="Canada", class="h-[300px] min-w-[300px]"),
+    figure("population", country="Australia", class="h-[300px] min-w-[300px]"),
   )
 }}
 
@@ -73,15 +73,15 @@ We can also dip into html when we need to
 <pre>
 {%- raw %}
 &lt;div class="flex flex-wrap"&gt;
-  {{ figure("example_params", country="United Kingdom") }}
-  {{ figure("example_params", country="France") }}
+  {{ figure("population", country="United Kingdom") }}
+  {{ figure("population", country="France") }}
 &lt/div&gt;
 {% endraw -%}
 </pre>
 
 <div class="flex flex-wrap">
-  {{ figure("example_params", country="United Kingdom") }}
-  {{ figure("example_params", country="France") }}
+  {{ figure("population", country="United Kingdom") }}
+  {{ figure("population", country="France") }}
 </div>
 
 Or a matplotlib char

@@ -3,13 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
 from boredcharts import BCRouter
-from boredcharts.jinja import to_html
-from fastapi.responses import HTMLResponse
 from plotly.graph_objects import Figure
 
 router = BCRouter()
 
 
+@router.chart("population")
 async def example(report_name: str, country: str) -> Figure:
     df = px.data.gapminder().query(f"country=='{country}'")
     fig = px.bar(df, x="year", y="pop")
@@ -30,17 +29,12 @@ async def example(report_name: str, country: str) -> Figure:
     return fig
 
 
-# TODO: pass functions into framework, auto generate these routes
-@router.chart("example_simple_usa")
-async def fig_example_simple(report_name: str) -> HTMLResponse:
-    return HTMLResponse(to_html(await example(report_name, "United States")))
+@router.chart("usa_population")
+async def fig_example_simple(report_name: str) -> Figure:
+    return await example(report_name, "United States")
 
 
-@router.chart("example_params")
-async def fig_example(report_name: str, country: str) -> HTMLResponse:
-    return HTMLResponse(to_html(await example(report_name, country)))
-
-
+@router.chart("elasticity_vs_profit")
 async def elasticity_vs_profit(
     report_name: str, margin: float | None = None
 ) -> mplfig.Figure:
@@ -96,11 +90,3 @@ async def elasticity_vs_profit(
     ax.grid(True)
 
     return fig
-
-
-# TODO: pass functions into framework, auto generate these routes
-@router.chart("elasticity_vs_profit")
-async def fig_elasticity_vs_profit(
-    report_name: str, margin: float | None = None
-) -> HTMLResponse:
-    return HTMLResponse(to_html(await elasticity_vs_profit(report_name, margin)))
