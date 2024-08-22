@@ -46,6 +46,8 @@ app = boredcharts(
 
 ### Write a markdown report
 
+pages/populations.md:
+
 ```md
 ## Populations
 
@@ -82,3 +84,7 @@ my-reports
 
 The bored-charts app is just a FastAPI (ASGI) app,
 so you can integrate it into your existing projects or extend it as needed.
+
+## Roadmap
+
+See the [Github repo](https;//github.com/oliverlambson/bored-charts)
