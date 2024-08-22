@@ -57,3 +57,6 @@ Inspired by [evidence.dev](https://github.com/evidence-dev/evidence),
 (1) I wanted to use python for data analysis and charting,
 (2) I didn't want a static site, and
 (3) I didn't want to pay for deployment.
+
+You could also achieve something similar with pandoc and nbconvert,
+see [examples/\_alternatives](https://github.com/oliverlambson/bored-charts/tree/main/examples/_alternatives) for more.

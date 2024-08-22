@@ -1,5 +1,5 @@
 [tool.uv.workspace]
-members = ["bored-charts", "examples/*"]
+members = ["bored-charts", "examples/full", "examples/minimal"]
 
 [tool.uv]
 dev-dependencies = [
@@ -24,12 +24,14 @@ addopts = "--doctest-modules"
 [tool.mypy]
 enable_incomplete_feature = ["NewGenericSyntax"]
 strict = true
+exclude = ["^examples/_.*$"]
 
 [[tool.mypy.overrides]]
 module = ["plotly.*", "mpld3.*"]
 ignore_missing_imports = true
 
 [tool.ruff.lint]
+exclude = ["examples/_*"]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
