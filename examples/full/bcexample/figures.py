@@ -2,12 +2,12 @@ import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
+from boredcharts import BCRouter
 from boredcharts.jinja import to_html
-from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 from plotly.graph_objects import Figure
 
-router = APIRouter()
+router = BCRouter()
 
 
 async def example(report_name: str, country: str) -> Figure:
@@ -31,14 +31,12 @@ async def example(report_name: str, country: str) -> Figure:
 
 
 # TODO: pass functions into framework, auto generate these routes
-@router.get(
-    "/report/{report_name}/figure/example_simple_usa", name="example_simple_usa"
-)
+@router.chart("example_simple_usa")
 async def fig_example_simple(report_name: str) -> HTMLResponse:
     return HTMLResponse(to_html(await example(report_name, "United States")))
 
 
-@router.get("/report/{report_name}/figure/example_params", name="example_params")
+@router.chart("example_params")
 async def fig_example(report_name: str, country: str) -> HTMLResponse:
     return HTMLResponse(to_html(await example(report_name, country)))
 
@@ -101,9 +99,7 @@ async def elasticity_vs_profit(
 
 
 # TODO: pass functions into framework, auto generate these routes
-@router.get(
-    "/report/{report_name}/figure/elasticity_vs_profit", name="elasticity_vs_profit"
-)
+@router.chart("elasticity_vs_profit")
 async def fig_elasticity_vs_profit(
     report_name: str, margin: float | None = None
 ) -> HTMLResponse:

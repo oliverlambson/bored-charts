@@ -93,7 +93,7 @@ def figure(
     figure: str,
     *,
     css_class: str = "min-h-112 min-w-80",
-    **kwargs: dict[str, Any],
+    **kwargs: Any,
 ) -> Markup:
     """Jinja function to display a figure.
 
@@ -104,10 +104,10 @@ def figure(
     {{ figure("example_figure_with_params", param_1="foo") }}
     """
     report = context.resolve("report")
-    if isinstance(report, Undefined):
-        raise ValueError("report is not available in the context")
-    if not isinstance(report, str):
-        raise ValueError(f"report must be a string, got {type(report)}")
+    if not isinstance(report, Undefined):
+        if not isinstance(report, str):
+            raise ValueError(f"report must be a string, got {type(report)}")
+        kwargs.update(report_name=report)
 
     request = context.resolve("request")
     if isinstance(request, Undefined):
@@ -115,7 +115,7 @@ def figure(
     if not isinstance(request, Request):
         raise ValueError(f"request must be a Request, got {type(request)}")
 
-    url = request.url_for(figure, report_name=report).include_query_params(**kwargs)
+    url = request.url_for(figure).include_query_params(**kwargs)
 
     # note using dedent to return a valid root-level element
     return Markup(
