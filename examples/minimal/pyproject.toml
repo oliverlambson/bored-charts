@@ -1,0 +1,7 @@
+[project]
+name = "minimal"
+version = "0.1.0"
+description = "A minimal bored-charts application."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["bored-charts", "uvicorn>=0.30.5"]

@@ -1,5 +1,5 @@
 [tool.uv.workspace]
-members = ["bored-charts", "example"]
+members = ["bored-charts", "examples/*"]
 
 [tool.uv]
 dev-dependencies = [
