@@ -87,4 +87,4 @@ so you can integrate it into your existing projects or extend it as needed.
 
 ## Roadmap
 
-See the [Github repo](https;//github.com/oliverlambson/bored-charts)
+See the [Github repo](https://github.com/oliverlambson/bored-charts)
