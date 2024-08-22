@@ -16,7 +16,15 @@ dependencies = [
 readme = "README.md"
 license = "MIT"
 requires-python = ">= 3.12"
-keywords = ["nanoid"]
+keywords = [
+    "boredcharts",
+    "dashboard",
+    "visualization",
+    "chart",
+    "graph",
+    "plotly",
+    "PDF",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
