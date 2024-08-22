@@ -12,6 +12,7 @@ dependencies = [
     "markupsafe>=2.1.5",
     "matplotlib>=3.9.2",
     "mpld3>=0.5.10",
+    "altair>=5.4.0",
 ]
 readme = "README.md"
 license = "MIT"

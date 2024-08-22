@@ -1,3 +1,4 @@
+import altair as alt
 import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
 import numpy as np
@@ -89,4 +90,31 @@ async def elasticity_vs_profit(
     ax.set_title("Profitable regions given change in price & qty for set margin")
     ax.grid(True)
 
+    return fig
+
+
+@router.chart("medals")
+async def medals() -> alt.Chart:
+    df = px.data.medals_long()
+    medals = {"gold": "#FFD700", "silver": "#C0C0C0", "bronze": "#CD7F32"}
+    fig = (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(
+            x="nation:N",
+            y="count:Q",
+            color=alt.Color(
+                "medal:N",
+                scale=alt.Scale(
+                    domain=list(medals.keys()), range=list(medals.values())
+                ),
+            ),
+            xOffset=alt.XOffset(
+                "medal:N",
+                sort=alt.EncodingSortField(field="medal:N", order="ascending"),
+            ),
+            order=alt.Order("medal:N", sort="ascending"),
+        )
+        .interactive()
+    )
     return fig

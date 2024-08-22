@@ -4,6 +4,7 @@ import uuid
 from textwrap import dedent, indent
 from typing import Any
 
+import altair as alt
 import markdown
 import matplotlib.figure as mplfig
 import mpld3
@@ -26,6 +27,8 @@ def to_html(fig: Figure | mplfig.Figure) -> Markup:
     match fig:
         case Figure():
             return plotly_to_html(fig)
+        case alt.Chart():
+            return altair_to_html(fig)
         case mplfig.Figure():
             return mpl_to_html(fig)
         case _:
@@ -47,6 +50,17 @@ def plotly_to_html(fig: Figure) -> Markup:
                 "responsive": True,
                 "displayModeBar": False,
             },
+        )
+    )
+
+
+def altair_to_html(chart: alt.Chart) -> Markup:
+    """Renders an Altair Chart as HTML."""
+    figid = uuid.uuid4()
+    return Markup(
+        chart.to_html(
+            fullhtml=False,
+            output_div=f"vis-{str(figid)}",
         )
     )
 
@@ -81,7 +95,7 @@ def mpl_to_html(fig: mplfig.Figure) -> Markup:
         mpld3.fig_to_html(
             fig,
             no_extras=True,
-            figid=str(figid),
+            figid=f"mpl-{str(figid)}",
         )
         + script
     )
