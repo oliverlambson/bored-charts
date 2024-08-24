@@ -10,13 +10,14 @@ Project structure:
 
 ```
 .
-├── bcexample
-│   ├── pages
-│   │   ├── example.md
-│   │   └── ...         <-- add more reports here
-│   ├── __init__.py
-│   ├── app.py
-│   └── figures.py      <-- add your figures here
+├── app
+│   ├── __init__.py
+│   ├── figures.py      <-- add your figures here
+│   └── main.py
+├── pages
+│   ├── medals.md
+│   ├── populations.md
+│   └── ...             <-- add more reports here
 ├── README.md
 └── pyproject.toml
 ```
