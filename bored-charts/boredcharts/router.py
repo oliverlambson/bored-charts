@@ -41,7 +41,7 @@ class HTMLFigure(go.Figure):  # type: ignore[misc]
 
 
 class BCRouter(APIRouter):
-    """A FastAPI APIRouter that is specifically designed for creating chart routes.
+    """A FastAPI router that turns charts into endpoints.
 
     Usage:
 
@@ -65,7 +65,7 @@ class BCRouter(APIRouter):
         Creates a GET route for a chart, just a shorter form of the FastAPI get decorator,
         your function still has to return a HTMLResponse
         """
-        path = f"/figure/{name}"
+        path = name if name.startswith("/") else f"/{name}"
         return self.get(
             path=path,
             name=name,

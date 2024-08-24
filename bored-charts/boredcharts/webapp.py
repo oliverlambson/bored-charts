@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from fastapi import APIRouter, FastAPI, Request
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -8,13 +8,14 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from plotly.offline import get_plotlyjs
 
 from boredcharts.jinja import figure, md_to_html, row
+from boredcharts.router import BCRouter
 
 module_root = Path(__file__).parent.absolute()
 
 
 def boredcharts(
     pages: Path,
-    figure_router: APIRouter,
+    figure_router: BCRouter,
     *,
     name: str = "bored-charts",
 ) -> FastAPI:
@@ -23,7 +24,7 @@ def boredcharts(
     templates_root = module_root / "templates"
     Path(static_root / "plotlyjs.min.js").write_text(get_plotlyjs())
 
-    app = FastAPI()
+    app = FastAPI(title=name)
 
     app.mount(
         "/static",
@@ -78,6 +79,8 @@ def boredcharts(
             },
         )
 
-    app.mount("/", figure_router)
+    if figure_router.tags is None or len(figure_router.tags) == 0:
+        figure_router.tags = ["figures"]
+    app.include_router(figure_router, prefix="/figures")
 
     return app
