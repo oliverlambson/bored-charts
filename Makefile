@@ -44,21 +44,6 @@ fmt:
 	uv run mdformat README.md
 	npx prettier . --write
 
-.PHONY: dev
-## Run locally
-dev:
-	UVICORN_RELOAD=true uv run bc-example
-
-.PHONY: d.up
-## Start docker compose
-d.up:
-	docker compose up --build
-
-.PHONY: d.down
-## Stop docker compose
-d.down:
-	docker compose down --remove-orphans
-
 .PHONY: clean
 ## Remove all hidden generated/cache files
 clean:

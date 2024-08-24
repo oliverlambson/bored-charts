@@ -20,3 +20,9 @@ Project structure:
 ├── README.md
 └── pyproject.toml
 ```
+
+It's also dockerized:
+
+```bash
+docker compose up --build
+```
