@@ -1,38 +1,9 @@
-import altair as alt
 import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
 import numpy as np
-import plotly.express as px
 from boredcharts import BCRouter
-from plotly.graph_objects import Figure
 
 router = BCRouter()
-
-
-@router.chart("population")
-async def example(report_name: str, country: str) -> Figure:
-    df = px.data.gapminder().query(f"country=='{country}'")
-    fig = px.bar(df, x="year", y="pop")
-    fig.update_layout(
-        plot_bgcolor="white",
-        title=f"Population of {country}",
-        xaxis=dict(
-            title="",
-            tickangle=-45,
-        ),
-        yaxis=dict(
-            gridcolor="lightgrey",
-            title="Population",
-            minor=dict(ticks="inside"),
-        ),
-        legend=dict(title=""),
-    )
-    return fig
-
-
-@router.chart("usa_population")
-async def fig_example_simple(report_name: str) -> Figure:
-    return await example(report_name, "United States")
 
 
 @router.chart("elasticity_vs_profit")
@@ -90,31 +61,4 @@ async def elasticity_vs_profit(
     ax.set_title("Profitable regions given change in price & qty for set margin")
     ax.grid(True)
 
-    return fig
-
-
-@router.chart("medals")
-async def medals() -> alt.Chart:
-    df = px.data.medals_long()
-    medals = {"gold": "#FFD700", "silver": "#C0C0C0", "bronze": "#CD7F32"}
-    fig = (
-        alt.Chart(df)
-        .mark_bar()
-        .encode(
-            x="nation:N",
-            y="count:Q",
-            color=alt.Color(
-                "medal:N",
-                scale=alt.Scale(
-                    domain=list(medals.keys()), range=list(medals.values())
-                ),
-            ),
-            xOffset=alt.XOffset(
-                "medal:N",
-                sort=alt.EncodingSortField(field="medal:N", order="ascending"),
-            ),
-            order=alt.Order("medal:N", sort="ascending"),
-        )
-        .interactive()
-    )
     return fig

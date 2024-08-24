@@ -1,3 +1,4 @@
+from enum import Enum
 from pathlib import Path
 
 from fastapi import FastAPI, Request
@@ -15,7 +16,7 @@ module_root = Path(__file__).parent.absolute()
 
 def boredcharts(
     pages: Path,
-    figure_router: BCRouter,
+    figure_router: BCRouter | list[BCRouter],
     *,
     name: str = "bored-charts",
 ) -> FastAPI:
@@ -57,19 +58,19 @@ def boredcharts(
     templates.env.globals["figure"] = figure
     templates.env.globals["row"] = row
 
-    @app.get("/")
-    async def home(request: Request) -> HTMLResponse:
+    @app.get("/healthz")
+    async def healthz() -> dict[str, str]:
+        return {"status": "ok"}
+
+    @app.get("/", tags=["reports"])
+    async def index(request: Request) -> HTMLResponse:
         return templates.TemplateResponse(
             "index.html",
             {"request": request},
         )
 
-    @app.get("/healthz")
-    async def healthz() -> dict[str, str]:
-        return {"status": "ok"}
-
     # TODO: pass pages path into framework, auto generate this route
-    @app.get("/report/{report_name}", name="report")
+    @app.get("/report/{report_name}", name="report", tags=["reports"])
     async def report(report_name: str, request: Request) -> HTMLResponse:
         return templates.TemplateResponse(
             "report.html",
@@ -79,8 +80,17 @@ def boredcharts(
             },
         )
 
-    if figure_router.tags is None or len(figure_router.tags) == 0:
-        figure_router.tags = ["figures"]
-    app.include_router(figure_router, prefix="/figures")
+    if not isinstance(figure_router, list):
+        figure_router = [figure_router]
+    for router in figure_router:
+        # tag grouping for openapi schema
+        tags: list[str | Enum] | None = None
+        if router.tags is None or len(router.tags) == 0:
+            tag = "figures"
+            if router.prefix:
+                tag += f":{router.prefix.lstrip("/")}"
+            tags = [tag]
+
+        app.include_router(router, prefix="/figure", tags=tags)
 
     return app

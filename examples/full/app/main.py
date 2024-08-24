@@ -3,12 +3,16 @@ from pathlib import Path
 
 from boredcharts import boredcharts
 
-from .figures import router as figure_router
+from app import elasticity, medals, population
 
 pages = Path(__file__).parent.parent.absolute() / "pages"
 app = boredcharts(
     pages=pages,
-    figure_router=figure_router,
+    figure_router=[
+        elasticity.router,
+        medals.router,
+        population.router,
+    ],
 )
 
 
