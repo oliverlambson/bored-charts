@@ -117,19 +117,22 @@ def figure(
 
     url = request.url_for(figure).include_query_params(**kwargs)
 
-    # note using dedent to return a valid root-level element
+    # note: using dedent to return a valid root-level element
+    # note: markdown.markdown can't recognise multilne tags so we have to keep the root-level tag on the first line
+    #   i.e.:
+    #   <div
+    #     class="flex flex-1 items-stretch"
+    #   >
+    #   is not recognised as a tag, so it would get wrapped in <p> tags, which we don't want
     return Markup(
         dedent(f"""
-            <div
-                hx-ext="response-targets"
-                class="not-prose {css_class} flex flex-1 items-stretch"
-            >
+            <div hx-ext="response-targets" class="not-prose flex flex-1 items-stretch {css_class}">
                 <figure
-                class="plotly-container min-h-0 min-w-0 flex-1"
-                hx-get="{url}"
-                hx-trigger="load"
-                hx-swap="innerHTML"
-                hx-target-error="find div"
+                    class="plotly-container min-h-0 min-w-0 flex-1"
+                    hx-get="{url}"
+                    hx-trigger="load"
+                    hx-swap="innerHTML"
+                    hx-target-error="find div"
                 >
                     <div class="flex h-full w-full items-center justify-center bg-stone-100">
                         <p>loading...</p>

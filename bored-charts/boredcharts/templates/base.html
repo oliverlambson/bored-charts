@@ -35,7 +35,8 @@
         @media print {
           .prose h2,
           .prose h3,
-          .prose h4 {
+          .prose h4,
+          .prose .avoid-page-break {
             page-break-after: avoid;
           }
 
@@ -75,5 +76,15 @@
         >
       </a>
     </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const paragraphs = document.querySelectorAll(".prose p");
+        paragraphs.forEach((paragraph) => {
+          if (paragraph.textContent.trim().endsWith(":")) {
+            paragraph.classList.add("avoid-page-break");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
