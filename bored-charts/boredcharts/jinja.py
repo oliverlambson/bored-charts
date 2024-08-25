@@ -56,11 +56,11 @@ def plotly_to_html(fig: Figure) -> Markup:
 
 def altair_to_html(chart: alt.Chart) -> Markup:
     """Renders an Altair Chart as HTML."""
-    figid = uuid.uuid4()
+    figid = f"vis-{uuid.uuid4()}"  # html id can't start with digit
     return Markup(
         chart.to_html(
             fullhtml=False,
-            output_div=f"vis-{str(figid)}",
+            output_div=figid,
         )
     )
 
@@ -68,7 +68,7 @@ def altair_to_html(chart: alt.Chart) -> Markup:
 def mpl_to_html(fig: mplfig.Figure) -> Markup:
     """Renders a matplotlib Figure as HTML."""
     # TODO: return base64 encoded PNG instead of using mpld3
-    figid = uuid.uuid4()
+    figid = f"mpl-{uuid.uuid4()}"  # html id can't start with digit
     script = dedent(
         string.Template(
             """
@@ -95,7 +95,7 @@ def mpl_to_html(fig: mplfig.Figure) -> Markup:
         mpld3.fig_to_html(
             fig,
             no_extras=True,
-            figid=f"mpl-{str(figid)}",
+            figid=figid,
         )
         + script
     )
