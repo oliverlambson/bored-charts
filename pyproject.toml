@@ -19,7 +19,7 @@ dev-dependencies = [
 bored-charts = { workspace = true }
 
 [tool.pytest.ini_options]
-addopts = "--doctest-modules"
+addopts = "--doctest-modules --ignore-glob=examples/_alternatives/*"
 
 [tool.mypy]
 enable_incomplete_feature = ["NewGenericSyntax"]

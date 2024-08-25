@@ -1,11 +1,10 @@
 import os
 from pathlib import Path
 
+from analysis import elasticity, medals, population
 from boredcharts import boredcharts
 
-from app import elasticity, medals, population
-
-pages = Path(__file__).parent.parent.absolute() / "pages"
+pages = Path(__file__).parent / "pages"
 app = boredcharts(
     pages=pages,
     figures=[
