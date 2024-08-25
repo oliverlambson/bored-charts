@@ -2,10 +2,10 @@ import altair as alt
 import plotly.express as px
 from boredcharts import BCRouter
 
-router = BCRouter()
+figures = BCRouter()
 
 
-@router.chart("medals")
+@figures.chart("medals")
 async def medals() -> alt.Chart:
     df = px.data.medals_long()
     medals = {"gold": "#FFD700", "silver": "#C0C0C0", "bronze": "#CD7F32"}

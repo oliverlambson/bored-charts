@@ -16,7 +16,7 @@ module_root = Path(__file__).parent.absolute()
 
 def boredcharts(
     pages: Path,
-    figure_router: BCRouter | list[BCRouter],
+    figures: BCRouter | list[BCRouter],
     *,
     name: str = "bored-charts",
 ) -> FastAPI:
@@ -80,9 +80,9 @@ def boredcharts(
             },
         )
 
-    if not isinstance(figure_router, list):
-        figure_router = [figure_router]
-    for router in figure_router:
+    if not isinstance(figures, list):
+        figures = [figures]
+    for router in figures:
         # tag grouping for openapi schema
         tags: list[str | Enum] | None = None
         if router.tags is None or len(router.tags) == 0:

@@ -9,7 +9,7 @@ def test_healthz() -> None:
     client = TestClient(
         boredcharts(
             pages=Path(__file__).parent / "pages",
-            figure_router=BCRouter(),
+            figures=BCRouter(),
         )
     )
     response = client.get("/healthz")

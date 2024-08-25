@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from boredcharts import BCRouter
 
-router = BCRouter()
+figures = BCRouter()
 
 
-@router.chart("elasticity_vs_profit")
+@figures.chart("elasticity_vs_profit")
 async def elasticity_vs_profit(
     report_name: str, margin: float | None = None
 ) -> mplfig.Figure:

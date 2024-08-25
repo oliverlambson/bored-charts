@@ -8,10 +8,10 @@ from app import elasticity, medals, population
 pages = Path(__file__).parent.parent.absolute() / "pages"
 app = boredcharts(
     pages=pages,
-    figure_router=[
-        elasticity.router,
-        medals.router,
-        population.router,
+    figures=[
+        elasticity.figures,
+        medals.figures,
+        population.figures,
     ],
 )
 

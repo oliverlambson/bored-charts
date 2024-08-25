@@ -26,10 +26,10 @@ import plotly.graph_objects as go
 from boredcharts import BCRouter, boredcharts
 
 pages = Path(__file__).parent.absolute() / "pages"
-figure_router = BCRouter()
+figures = BCRouter()
 
 
-@figure_router.chart("population")
+@figures.chart("population")
 async def population(country: str) -> go.Figure:
     df = px.data.gapminder().query(f"country=='{country}'")
     fig = px.bar(df, x="year", y="pop")
@@ -38,7 +38,7 @@ async def population(country: str) -> go.Figure:
 
 app = boredcharts(
     pages=pages,
-    figure_router=figure_router,
+    figures=figures,
 )
 ```
 
