@@ -16,7 +16,7 @@ def validate_figure(fig: Any) -> go.Figure:
     return fig
 
 
-class HTMLFigure(go.Figure):  # type: ignore[misc]
+class HTMLFigure:
     """A Plotly Figure that Pydantic can understand and serialize.
 
     This allows us to return a Plotly Figure from a FastAPI route.
@@ -34,9 +34,7 @@ class HTMLFigure(go.Figure):  # type: ignore[misc]
                     core_schema.any_schema(),
                 ]
             ),
-            serialization=core_schema.plain_serializer_function_ser_schema(
-                lambda instance: to_html(instance)
-            ),
+            serialization=core_schema.plain_serializer_function_ser_schema(to_html),
         )
 
 

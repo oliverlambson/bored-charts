@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "A fuller example of a bored-charts project."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["bored-charts", "uvicorn>=0.30.5", "altair[all]>=5.4.0"]
+dependencies = [
+    "bored-charts",
+    "uvicorn>=0.30.5",
+    "altair[all]>=5.4.0",
+    "vega-datasets>=0.9.0",
+]
 
 [project.scripts]
 bc-example = "app:entrypoint"

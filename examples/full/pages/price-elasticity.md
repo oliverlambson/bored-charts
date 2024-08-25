@@ -1,3 +1,5 @@
+August 2024
+
 ## Price elasticity
 
 Here we did some more fiddly analysis and wanted to use matplotlib for whatever reason,

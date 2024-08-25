@@ -27,6 +27,7 @@ async def medals() -> alt.Chart:
             ),
             order=alt.Order("medal:N", sort="ascending"),
         )
+        .properties(title="Countries' olympic medals")
         .interactive()
     )
     return fig

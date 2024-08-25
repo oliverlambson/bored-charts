@@ -3,7 +3,7 @@ import logging
 import uuid
 from io import BytesIO
 from textwrap import dedent, indent
-from typing import Any
+from typing import Any, cast
 
 import altair as alt
 import markdown
@@ -22,12 +22,15 @@ def md_to_html(md: str) -> Markup:
     return Markup(markdown.markdown(md))
 
 
-def to_html(fig: Figure | mplfig.Figure) -> Markup:
+def to_html(fig: Figure | mplfig.Figure | alt.typing.ChartType) -> Markup:
     """Renders a Figure to an HTML string."""
     match fig:
         case Figure():
             return plotly_to_html(fig)
-        case alt.Chart():
+        case _ if isinstance(fig, alt.typing.ChartType):  # type: ignore[arg-type]
+            # the above is correct on >=3.10, but mypy doesn't handle it: https://github.com/python/mypy/issues/17680
+            # so we have to manually cast:
+            fig = cast(alt.typing.ChartType, fig)
             return altair_to_html(fig)
         case mplfig.Figure():
             return mpl_to_html(fig)
@@ -54,7 +57,7 @@ def plotly_to_html(fig: Figure) -> Markup:
     )
 
 
-def altair_to_html(chart: alt.Chart) -> Markup:
+def altair_to_html(chart: alt.typing.ChartType) -> Markup:
     """Renders an Altair Chart as HTML."""
     figid = f"vis-{uuid.uuid4()}"  # html id can't start with digit
     return Markup(
