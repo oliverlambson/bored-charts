@@ -1,4 +1,4 @@
-__version__ = "0.11.0"
+__version__ = "0.12.0"
 
 from boredcharts.router import FigureRouter
 from boredcharts.webapp import boredcharts
