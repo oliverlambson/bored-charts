@@ -77,14 +77,24 @@
       </a>
     </footer>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const paragraphs = document.querySelectorAll(".prose p");
+      /**
+       * Adds the "avoid-page-break" class to paragraphs ending in a colon      *
+       * @param {Element} elt - The element within which to search for paragraphs.
+       */
+      function addPageBreakStyles(elt) {
+        const paragraphs = elt.querySelectorAll(".prose p");
         paragraphs.forEach((paragraph) => {
           if (paragraph.textContent.trim().endsWith(":")) {
             paragraph.classList.add("avoid-page-break");
           }
         });
-      });
+      }
+      document.addEventListener("DOMContentLoaded", () =>
+        addPageBreakStyles(document.body),
+      );
+      document.body.addEventListener("htmx:afterSwap", (event) =>
+        addPageBreakStyles(event.detail.elt),
+      ); // hx-boost is enabled, so we can't rely on DOMContentLoaded
     </script>
   </body>
 </html>
