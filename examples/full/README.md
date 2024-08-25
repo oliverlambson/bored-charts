@@ -22,8 +22,8 @@ Project structure:
 │   ├── populations.md
 │   └── ...             <-- add more reports here
 ├── app.py              <-- the main bored-charts app
-├── README.md
-└── pyproject.toml
+├── pyproject.toml
+└── README.md
 ```
 
 It's also dockerized:

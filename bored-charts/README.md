@@ -73,9 +73,9 @@ my-reports
 ├── pages             <-- write your markdown reports
 │   ├── example.md
 │   └── ...
-├── README.md
 ├── app.py            <-- spin up the bored-charts app
-└── pyproject.toml
+├── pyproject.toml
+└── README.md
 ```
 
 ## Extensibility
