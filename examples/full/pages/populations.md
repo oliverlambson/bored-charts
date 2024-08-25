@@ -83,8 +83,3 @@ We can also dip into html when we need to
   {{ figure("population", country="United Kingdom") }}
   {{ figure("population", country="France") }}
 </div>
-
-Or a matplotlib char
-(this is buggy though, mpld3 is not actively supported which means we shouldn't really do this):
-
-{{ figure("elasticity_vs_profit") }}

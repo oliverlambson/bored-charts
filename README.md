@@ -15,7 +15,7 @@ Build easy, minimal, PDF-able data reports with markdown and python.
   - [x] allow decoration of functions that return figures directly
 - [x] make report_name path parameter optional
 - [x] altair figures as html
-- [ ] matplotlib figures as png (remove mpld3)
+- [x] matplotlib figures as png (drop mpld3)
 - [ ] pdf exports with selenium in headless mode
 - [ ] cli? (`boredcharts init`, `boredcharts export [report]`, `boredcharts dev`, `boredcharts serve`)
 - [ ] deploy to [bored-charts-example.oliverlambson.com](https://bored-charts-example.oliverlambson.com)

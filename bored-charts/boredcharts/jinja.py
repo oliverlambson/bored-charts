@@ -1,13 +1,13 @@
+import base64
 import logging
-import string
 import uuid
+from io import BytesIO
 from textwrap import dedent, indent
 from typing import Any
 
 import altair as alt
 import markdown
 import matplotlib.figure as mplfig
-import mpld3
 from fastapi import Request
 from jinja2 import Undefined, pass_context
 from jinja2.runtime import Context
@@ -66,39 +66,22 @@ def altair_to_html(chart: alt.Chart) -> Markup:
 
 
 def mpl_to_html(fig: mplfig.Figure) -> Markup:
-    """Renders a matplotlib Figure as HTML."""
-    # TODO: return base64 encoded PNG instead of using mpld3
-    figid = f"mpl-{uuid.uuid4()}"  # html id can't start with digit
-    script = dedent(
-        string.Template(
-            """
-                <script>
-                async function resizeMpld3(event, figid) {
-                    var targetDiv = event.detail.elt.querySelector(`#${figid}`);
-                    if (targetDiv) {
-                        var svgElements = targetDiv.querySelectorAll('.mpld3-figure');
-                        svgElements.forEach(function(svgElement) {
-                            var width = svgElement.getAttribute('width');
-                            var height = svgElement.getAttribute('height');
-                            svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
-                            svgElement.setAttribute('width', '100%');
-                            svgElement.removeAttribute('height');
-                        });
-                    }
-                }
-                document.addEventListener("htmx:afterSettle", (event) => { resizeMpld3(event, "${figid}") });
-                </script>
-            """
-        ).safe_substitute(figid=figid)
-    ).strip()
-    return Markup(
-        mpld3.fig_to_html(
-            fig,
-            no_extras=True,
-            figid=figid,
-        )
-        + script
-    )
+    """Renders a Matplotlib Chart as HTML."""
+    with BytesIO() as buffer:
+        fig.savefig(buffer, format="png", dpi=250)
+        buffer.seek(0)
+        png = buffer.read()
+    png64 = base64.b64encode(png).decode("utf-8")
+
+    title = fig.get_suptitle()
+    if not title:
+        titles = []
+        for ax in fig.get_axes():
+            if t := ax.get_title():
+                titles.append(t)
+        title = "; ".join(titles)
+
+    return Markup(f"""<img src="data:image/png;base64,{png64}" alt="{title}">""")
 
 
 @pass_context
