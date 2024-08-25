@@ -40,16 +40,16 @@ class HTMLFigure(go.Figure):  # type: ignore[misc]
         )
 
 
-class BCRouter(APIRouter):
+class FigureRouter(APIRouter):
     """A FastAPI router that turns charts into endpoints.
 
     Usage:
 
     ```py
-    from boredcharts import BCRouter
+    from boredcharts import FigureRouter
     import plotly.graph_objects as go
 
-    router = BCRouter()
+    router = FigureRouter()
 
     @router.chart("my_chart")
     async def my_chart() -> go.Figure:

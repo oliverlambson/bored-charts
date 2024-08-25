@@ -1,9 +1,9 @@
 import matplotlib.figure as mplfig
 import matplotlib.pyplot as plt
 import numpy as np
-from boredcharts import BCRouter
+from boredcharts import FigureRouter
 
-figures = BCRouter()
+figures = FigureRouter()
 
 
 @figures.chart("elasticity_vs_profit")

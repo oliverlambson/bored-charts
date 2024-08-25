@@ -9,14 +9,14 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from plotly.offline import get_plotlyjs
 
 from boredcharts.jinja import figure, md_to_html, row
-from boredcharts.router import BCRouter
+from boredcharts.router import FigureRouter
 
 module_root = Path(__file__).parent.absolute()
 
 
 def boredcharts(
     pages: Path,
-    figures: BCRouter | list[BCRouter],
+    figures: FigureRouter | list[FigureRouter],
     *,
     name: str = "bored-charts",
 ) -> FastAPI:

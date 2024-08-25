@@ -2,9 +2,9 @@ from pathlib import Path
 
 import plotly.express as px
 import plotly.graph_objects as go
-from boredcharts import BCRouter, boredcharts
+from boredcharts import FigureRouter, boredcharts
 
-figures = BCRouter()
+figures = FigureRouter()
 
 
 @figures.chart("population")

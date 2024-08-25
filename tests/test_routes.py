@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from boredcharts.router import BCRouter
+from boredcharts.router import FigureRouter
 from boredcharts.webapp import boredcharts
 from fastapi.testclient import TestClient
 
@@ -9,7 +9,7 @@ def test_healthz() -> None:
     client = TestClient(
         boredcharts(
             pages=Path(__file__).parent / "pages",
-            figures=BCRouter(),
+            figures=FigureRouter(),
         )
     )
     response = client.get("/healthz")

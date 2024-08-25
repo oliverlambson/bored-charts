@@ -1,8 +1,8 @@
 import plotly.express as px
-from boredcharts import BCRouter
+from boredcharts import FigureRouter
 from plotly.graph_objects import Figure
 
-figures = BCRouter(prefix="/population")
+figures = FigureRouter(prefix="/population")
 
 
 @figures.chart("population")

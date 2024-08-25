@@ -1,8 +1,8 @@
 import altair as alt
 import plotly.express as px
-from boredcharts import BCRouter
+from boredcharts import FigureRouter
 
-figures = BCRouter()
+figures = FigureRouter()
 
 
 @figures.chart("medals")

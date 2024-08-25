@@ -1,9 +1,9 @@
-__version__ = "0.7.0"
+__version__ = "0.8.0"
 
-from boredcharts.router import BCRouter
+from boredcharts.router import FigureRouter
 from boredcharts.webapp import boredcharts
 
 __all__ = [
-    "BCRouter",
+    "FigureRouter",
     "boredcharts",
 ]
