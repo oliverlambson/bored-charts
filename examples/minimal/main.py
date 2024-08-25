@@ -4,7 +4,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from boredcharts import BCRouter, boredcharts
 
-pages = Path(__file__).parent.absolute() / "pages"
 figures = BCRouter()
 
 
@@ -15,7 +14,4 @@ async def population(country: str) -> go.Figure:
     return fig
 
 
-app = boredcharts(
-    pages=pages,
-    figures=figures,
-)
+app = boredcharts(pages=Path(__file__).parent, figures=figures)
