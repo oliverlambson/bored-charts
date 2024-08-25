@@ -11,15 +11,15 @@
     {% endfor %}
     {% for dir in dirtree.dirs %}
       <details open>
-        <summary>
+        <summary class="list-outside">
           <a
             href="{{ url_for(to_name(parent / dir.name, "index")) }}"
             class="text-blue-500 underline underline-offset-2 hover:underline-offset-4"
           >
-            {{ parent / dir.name }}
+            {{ parent / dir.name ~ "/" }}
           </a>
         </summary>
-        {{ render_tree(dir, parent / dir.name) }}
+        <div class="pl-4">{{ render_tree(dir, parent / dir.name) }}</div>
       </details>
     {% endfor %}
   </ul>
