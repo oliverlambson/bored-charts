@@ -16,13 +16,15 @@ Project structure:
 │   ├── elasticity.py
 │   ├── medals.py
 │   ├── population.py
-│   └── ...             <-- add more figures here
+│   └── ...                   <-- add more figures here
 ├── pages
-│   ├── populations.md
+│   ├── more                  - note you can create nested paths:
+│   │   └── test.md             <- this will be at /more/test
+│   ├── populations.md          <- this will be at /populations
 │   ├── price-elasticity.md
 │   ├── vega-lite-is-cool.md
-│   └── ...             <-- add more reports here
-├── app.py              <-- the main bored-charts app
+│   └── ...                   <-- add more reports here
+├── app.py                    - the main bored-charts app
 ├── pyproject.toml
 └── README.md
 ```
