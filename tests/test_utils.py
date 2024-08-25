@@ -4,21 +4,27 @@ from boredcharts.utils import DirTree, get_dirtree
 
 
 def test_get_dirtree() -> None:
-    directory = Path(__file__).parent.parent / "examples/full/pages"
+    directory = Path(__file__).parent / "pages"
     expected: DirTree = DirTree(
         name=Path(),
         files=[
-            Path("price-elasticity.md"),
-            Path("vega-lite-is-cool.md"),
-            Path("populations.md"),
+            Path("example.md"),
         ],
         dirs=[
             DirTree(
-                name=Path("more"),
+                name=Path("nest"),
                 files=[
                     Path("test.md"),
                 ],
-                dirs=[],
+                dirs=[
+                    DirTree(
+                        name=Path("doublenest"),
+                        files=[
+                            Path("test2.md"),
+                        ],
+                        dirs=[],
+                    )
+                ],
             )
         ],
     )
