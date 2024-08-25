@@ -12,8 +12,11 @@ Project structure:
 .
 ├── app
 │   ├── __init__.py
-│   ├── figures.py      <-- add your figures here
-│   └── main.py
+│   ├── elasticity.py    # analysis on price elasticity
+│   ├── main.py          # the main bored-charts app
+│   ├── medals.py        # analysis on olympic medals
+│   ├── population.py    # analysis on world population growth
+│   └── ...             <-- add more figures here
 ├── pages
 │   ├── medals.md
 │   ├── populations.md
