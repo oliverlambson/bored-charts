@@ -22,3 +22,19 @@ def get_dirtree(parent: Path, directory: Path = Path()) -> DirTree:
             dirs.append(get_dirtree(full_dir, item.relative_to(full_dir)))
 
     return DirTree(name=directory, files=files, dirs=dirs)
+
+
+def to_name(path: Path | str, kind: str = "") -> str:
+    if isinstance(path, str):
+        path = Path(path)
+    if path.name:
+        path = path.with_suffix("")
+    if path.root.startswith("/"):
+        path = path.relative_to("/")
+    return str(Path(kind) / path).replace("/", ".").strip(".")
+
+
+def to_url_path(path: Path) -> str:
+    if path.name:
+        path = path.with_suffix("")
+    return str(Path("/") / path)

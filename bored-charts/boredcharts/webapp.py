@@ -13,7 +13,7 @@ from plotly.offline import get_plotlyjs
 
 from boredcharts.jinja import figure, md_to_html, row
 from boredcharts.router import FigureRouter
-from boredcharts.utils import DirTree, get_dirtree
+from boredcharts.utils import DirTree, get_dirtree, to_name, to_url_path
 
 logger = logging.getLogger("boredcharts")
 
@@ -26,29 +26,30 @@ class ReportEndpoint(NamedTuple):
     endpoint: Callable[..., Awaitable[HTMLResponse]]
 
 
-def to_name(path: Path | str, kind: str = "") -> str:
-    if isinstance(path, str):
-        path = Path(path)
-    if path.name:
-        path = path.with_suffix("")
-    if path.root.startswith("/"):
-        path = path.relative_to("/")
-    return str(Path(kind) / path).replace("/", ".").strip(".")
-
-
-def to_url_path(path: Path) -> str:
-    if path.name:
-        path = path.with_suffix("")
-    return str(Path("/") / path)
-
-
 def boredcharts(
     pages: Path,
     figures: FigureRouter | list[FigureRouter],
     *,
     index_name: str = "bored-charts",
 ) -> FastAPI:
-    """Creates a boredcharts app."""
+    """Creates a boredcharts app.
+
+    Usage:
+
+    ```py
+    from pathlib import Path
+    from boredcharts import FigureRouter, boredcharts
+    import plotly.graph_objects as go
+
+    router = FigureRouter()
+
+    @router.chart("my_chart")
+    async def my_chart() -> go.Figure:
+        return go.Figure()
+
+    app = boredcharts(Path("pages"), router)
+    ```
+    """
     static_root = module_root / "static"
     templates_root = module_root / "templates"
     Path(static_root / "plotlyjs.min.js").write_text(get_plotlyjs())
