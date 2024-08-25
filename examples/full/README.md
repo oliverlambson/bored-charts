@@ -17,6 +17,7 @@ Project structure:
 │   ├── population.py
 │   └── ...             <-- add more figures here
 ├── pages
+│   ├── elasticity.md
 │   ├── medals.md
 │   ├── populations.md
 │   └── ...             <-- add more reports here

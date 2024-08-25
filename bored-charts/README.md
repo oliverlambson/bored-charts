@@ -19,13 +19,13 @@ pip install bored-charts uvicorn
 
 ```python
 # main.py
+
 from pathlib import Path
 
 import plotly.express as px
 import plotly.graph_objects as go
 from boredcharts import BCRouter, boredcharts
 
-pages = Path(__file__).parent.absolute() / "pages"
 figures = BCRouter()
 
 
@@ -36,17 +36,14 @@ async def population(country: str) -> go.Figure:
     return fig
 
 
-app = boredcharts(
-    pages=pages,
-    figures=figures,
-)
+app = boredcharts(pages=Path(__file__).parent, figures=figures)
 ```
 
 ### Write a markdown report
 
-pages/populations.md:
-
 ```md
+<!-- populations.md -->
+
 ## Populations
 
 USA's population has been growing linearly for the last 70 years:
@@ -64,17 +61,20 @@ uvicorn main:app --reload
 
 ## Going further
 
-A more full project structure might look like this:
+A more full project structure might look like this
+(see the [full example here](https://github.com/oliverlambson/bored-charts/tree/main/examples/full)):
 
 ```
 my-reports
-├── myreports
-│   ├── pages           <-- put your markdown reports here
-│   │   └── example.md
+├── analysis          <-- do your analysis and define your figures
 │   ├── __init__.py
-│   ├── app.py          <-- spin up the app here
-│   └── figures.py      <-- define your figures here
+│   ├── figures.py
+│   └── ...
+├── pages             <-- write your markdown reports
+│   ├── example.md
+│   └── ...
 ├── README.md
+├── app.py            <-- spin up the bored-charts app
 └── pyproject.toml
 ```
 
