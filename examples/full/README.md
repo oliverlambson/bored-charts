@@ -15,11 +15,12 @@ Project structure:
 │   ├── cars.py
 │   ├── elasticity.py
 │   ├── medals.py
+│   ├── penguins.py
 │   ├── population.py
 │   └── ...                   <-- add more figures here
 ├── pages
-│   ├── more                  - note you can create nested paths:
-│   │   └── test.md             <- this will be at /more/test
+│   ├── the-arctic            - note you can create nested paths:
+│   │   └── pengiuns.md         <- this will be at /the-arctic/penguins
 │   ├── populations.md          <- this will be at /populations
 │   ├── price-elasticity.md
 │   ├── vega-lite-is-cool.md

@@ -4,6 +4,7 @@ from enum import Enum
 from pathlib import Path
 from typing import NamedTuple
 
+import matplotlib
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -104,6 +105,7 @@ def boredcharts(
     async def healthz() -> dict[str, str]:
         return {"status": "ok"}
 
+    matplotlib.use("agg")  # force non-interactive
     return app
 
 

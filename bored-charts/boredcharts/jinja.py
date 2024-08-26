@@ -3,11 +3,12 @@ import logging
 import uuid
 from io import BytesIO
 from textwrap import dedent, indent
-from typing import Any, cast
+from typing import Any, TypeAlias, cast
 
 import altair as alt
 import markdown
 import matplotlib.figure as mplfig
+import seaborn as sns
 from fastapi import Request
 from jinja2 import Undefined, pass_context
 from jinja2.runtime import Context
@@ -22,7 +23,12 @@ def md_to_html(md: str) -> Markup:
     return Markup(markdown.markdown(md))
 
 
-def to_html(fig: Figure | mplfig.Figure | alt.typing.ChartType) -> Markup:
+SeabornGrid: TypeAlias = (
+    sns.FacetGrid | sns.PairGrid | sns.JointGrid
+)  # I think that's all of them
+
+
+def to_html(fig: Figure | mplfig.Figure | alt.typing.ChartType | SeabornGrid) -> Markup:
     """Renders a Figure to an HTML string."""
     match fig:
         case Figure():
@@ -34,6 +40,9 @@ def to_html(fig: Figure | mplfig.Figure | alt.typing.ChartType) -> Markup:
             return altair_to_html(fig)
         case mplfig.Figure():
             return mpl_to_html(fig)
+        case _ if isinstance(fig, SeabornGrid):
+            fig = cast(SeabornGrid, fig)
+            return sns_to_html(fig)
         case _:
             raise ValueError(
                 f"Input must be a Plotly/Matplotlib Figure, got {type(fig)}"
@@ -85,6 +94,11 @@ def mpl_to_html(fig: mplfig.Figure) -> Markup:
         title = "; ".join(titles)
 
     return Markup(f"""<img src="data:image/png;base64,{png64}" alt="{title}">""")
+
+
+def sns_to_html(fig: SeabornGrid) -> Markup:
+    """Renders a Seaborn Chart as HTML."""
+    return mpl_to_html(fig.figure)
 
 
 @pass_context

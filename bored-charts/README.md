@@ -83,6 +83,7 @@ my-reports
 - [matplotlib](https://matplotlib.org/)
 - [plotly](https://plotly.com/python/)
 - [vega-altair](https://altair-viz.github.io/)
+- [seaborn](https://seaborn.pydata.org/)
 
 ## Extensibility
 

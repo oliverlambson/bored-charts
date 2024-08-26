@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from analysis import cars, elasticity, medals, population
+from analysis import cars, elasticity, medals, penguins, population
 from boredcharts import boredcharts
 
 pages = Path(__file__).parent / "pages"
@@ -12,6 +12,7 @@ app = boredcharts(
         medals.figures,
         cars.figures,
         population.figures,
+        penguins.figures,
     ],
 )
 
