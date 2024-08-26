@@ -125,7 +125,7 @@ wheels = [
 
 [[package]]
 name = "bored-charts"
-version = "0.6.1"
+version = "0.12.0"
 source = { editable = "bored-charts" }
 dependencies = [
     { name = "altair" },
@@ -134,7 +134,6 @@ dependencies = [
     { name = "markdown" },
     { name = "markupsafe" },
     { name = "matplotlib" },
-    { name = "pandas" },
     { name = "plotly" },
 ]
 
@@ -146,7 +145,6 @@ requires-dist = [
     { name = "markdown", specifier = ">=3.6" },
     { name = "markupsafe", specifier = ">=2.1.5" },
     { name = "matplotlib", specifier = ">=3.9.2" },
-    { name = "pandas", specifier = ">=2.2.2" },
     { name = "plotly", specifier = ">=5.23.0" },
 ]
 
