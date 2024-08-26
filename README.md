@@ -18,8 +18,12 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 - [x] matplotlib figures as png (drop mpld3)
 - [x] allow nested pages for grouping reports
 - [ ] matplotlib figures as svg?
+- [ ] support python 3.10, 3.11
 - [ ] make plotting libraries optional
 - [ ] pdf exports with selenium in headless mode
+- [ ] ability to archive reports (export to static html, move to archive directory,
+      still serve from archive directory, but can get rid of analysis—could just
+      be archive endpoints for figures?)
 - [ ] cli? (`boredcharts init`, `boredcharts export [report]`, `boredcharts dev`, `boredcharts serve`)
 - [ ] deploy to [bored-charts-example.oliverlambson.com](https://bored-charts-example.oliverlambson.com)
 - [ ] dashboard layout with tighter grid layout
