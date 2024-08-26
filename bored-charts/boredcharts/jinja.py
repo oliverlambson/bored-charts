@@ -15,6 +15,8 @@ from jinja2.runtime import Context
 from markupsafe import Markup
 from plotly.graph_objects import Figure
 
+from boredcharts.utils import uuid_to_urlid
+
 logger = logging.getLogger("boredcharts")
 
 
@@ -68,7 +70,8 @@ def plotly_to_html(fig: Figure) -> Markup:
 
 def altair_to_html(chart: alt.typing.ChartType) -> Markup:
     """Renders an Altair Chart as HTML."""
-    figid = f"vis-{uuid.uuid4()}"  # html id can't start with digit
+    id_ = uuid_to_urlid(uuid.uuid4())
+    figid = f"vis-{id_}"  # html id can't start with digit
     return Markup(
         chart.to_html(
             fullhtml=False,
