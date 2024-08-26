@@ -48,3 +48,6 @@ fmt:
 ## Remove all hidden generated/cache files
 clean:
 	find . -type d \( -name "__pycache__" -o -name ".ruff_cache" -o -name ".mypy_cache" -o -name ".pytest_cache" \) -exec rm -rf {} +
+
+cloc:
+	cloc bored-charts --exclude-dir=__pycache__,dist,static
