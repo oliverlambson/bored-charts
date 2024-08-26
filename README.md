@@ -17,6 +17,7 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 - [x] altair figures as html
 - [x] matplotlib figures as png (drop mpld3)
 - [x] allow nested pages for grouping reports
+- [ ] make plotting libraries optional
 - [ ] pdf exports with selenium in headless mode
 - [ ] cli? (`boredcharts init`, `boredcharts export [report]`, `boredcharts dev`, `boredcharts serve`)
 - [ ] deploy to [bored-charts-example.oliverlambson.com](https://bored-charts-example.oliverlambson.com)
@@ -24,24 +25,28 @@ Build easy, minimal, PDF-able data reports with markdown and python.
 - [ ] example with database
 - [ ] example with authentication
 
-## Setup
+## Usage
+
+See [bored-charts/README.md](./bored-charts/README.md) (you're currently reading the development README).
+
+## Development
 
 You'll need [uv](https://docs.astral.sh/uv/getting-started/installation/).
 (and [node](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)
 for linting/formatting, sorry)
 
 ```bash
-make env  # sets up python virtual environment
-make dev  # runs bored-charts at http://localhost:4000
+make env  # you need uv & node for this
+make test
+make lint
+make fmt
 ```
 
-## Development
+I recommend running the full example project to see how everything fits together:
 
 ```bash
-make dev  # runs bored-charts at http://localhost:4000
-make test # runs tests
-make lint # runs linting
-make fmt  # runs formatting
+cd examples/full
+make dev
 ```
 
 ## Built with
@@ -50,7 +55,6 @@ make fmt  # runs formatting
 - [htmx](https://htmx.org/)
 - [jinja](https://jinja.palletsprojects.com/en/3.1.x/)
 - [tailwindcss](https://tailwindcss.com/)
-- [plotly](https://plotly.com/python/)
 
 ## Alternatives
 

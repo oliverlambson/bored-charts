@@ -78,10 +78,17 @@ my-reports
 └── README.md
 ```
 
+## Supported charting libraries
+
+- [matplotlib](https://matplotlib.org/)
+- [plotly](https://plotly.com/python/)
+- [vega-altair](https://altair-viz.github.io/)
+
 ## Extensibility
 
 The bored-charts app is just a FastAPI (ASGI) app,
-so you can integrate it into your existing projects or extend it as needed.
+so you can integrate it into your existing projects or extend it as needed
+with existing solutions (e.g., adding authentication).
 
 ## Roadmap
 
