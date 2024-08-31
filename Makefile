@@ -33,7 +33,6 @@ test:
 lint:
 	uv run ruff check .
 	uv run ruff format . --check
-	uv run mdformat README.md --check
 	npx prettier . --check
 
 .PHONY: fmt
@@ -41,7 +40,6 @@ lint:
 fmt:
 	uv run ruff check . --fix
 	uv run ruff format .
-	uv run mdformat README.md
 	npx prettier . --write
 
 .PHONY: clean
