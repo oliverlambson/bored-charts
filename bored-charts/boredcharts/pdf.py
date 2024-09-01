@@ -35,7 +35,7 @@ async def print_to_pdf_manual(url: str, file: Path) -> None:
             raise ChildProcessError(f"Could not export to pdf {stderr.decode()}")
 
 
-async def print_to_pdf_pw_adv(url: str, file: Path) -> None:
+async def _print_to_pdf_pw_adv(url: str, file: Path) -> None:
     # in headless mode this doesn't seem to actually download the pdf
     prefs = {
         "printing": {
@@ -75,7 +75,7 @@ async def print_to_pdf_pw_adv(url: str, file: Path) -> None:
             await context.close()
 
 
-async def print_to_pdf_pw_basic(url: str, file: Path) -> None:
+async def _print_to_pdf_pw_basic(url: str, file: Path) -> None:
     # playwright's built-in pdf export results in text that can't be selected well
     async with async_playwright() as p:
         browser = await p.chromium.launch()
