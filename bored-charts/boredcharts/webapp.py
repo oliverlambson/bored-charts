@@ -195,6 +195,7 @@ def create_report_endpoint(
             {
                 "request": request,
                 "report": report,
+                # "title": report, # TODO: use report name for title (get from frontmatter)
             },
         )
 
