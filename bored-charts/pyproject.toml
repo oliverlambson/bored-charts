@@ -4,14 +4,18 @@ dynamic = ["version"]
 description = "Easy, minimal, PDF-able data reports with python and markdown."
 authors = [{ name = "Oliver Lambson", email = "oliverlambson@gmail.com" }]
 dependencies = [
+    # core
     "fastapi>=0.112.0",
     "jinja2>=3.1.4",
     "markdown>=3.6",
     "markupsafe>=2.1.5",
+    # charts
     "matplotlib>=3.9.2",
     "plotly>=5.23.0",
     "altair>=5.4.0",
     "seaborn>=0.13.2",
+    # cli
+    "playwright>=1.46.0",
 ]
 readme = "README.md"
 license = "MIT"
@@ -46,6 +50,9 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/oliverlambson/bored-charts.git"
 Issues = "https://github.com/oliverlambson/bored-charts/issues"
+
+[project.scripts]
+boredcharts = "boredcharts.cli:main"
 
 [build-system]
 requires = ["hatchling"]
